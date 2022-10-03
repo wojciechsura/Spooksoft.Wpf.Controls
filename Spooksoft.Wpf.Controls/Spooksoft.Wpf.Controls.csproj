@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net48;net6.0-windows</TargetFrameworks>
+	  <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>A set of useful WPF controls</Title>
+    <Version>$(VersionPrefix)</Version>
+    <Authors>Wojciech "Spook" Sura</Authors>
+    <Description>A set of useful WPF controls.</Description>
+    <PackageProjectUrl>https://github.com/wojciechsura/Spooksoft.Wpf.Controls</PackageProjectUrl>
+    <PackageReadmeFile>README.MD</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.MD">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+</Project>
