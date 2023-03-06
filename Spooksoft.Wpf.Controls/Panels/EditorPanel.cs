@@ -53,7 +53,8 @@ namespace Spooksoft.Wpf.Controls.Panels
             }
         }
 
-        private static (double elementStart, double elementSize) EvalPlacement(double placementRectStart,
+        private static (double elementStart, double elementSize) EvalPlacement(
+            double placementRectStart,
             double placementRectSize,
             double elementDesiredSize,
             GeneralAlignment elementAlignment)
@@ -70,7 +71,7 @@ namespace Spooksoft.Wpf.Controls.Panels
 
                 case GeneralAlignment.Center:
                     resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize));
-                    resultStart = placementRectStart + (placementRectSize - (resultSize) / 2);
+                    resultStart = placementRectStart + (placementRectSize - resultSize) / 2;
                     break;
 
                 case GeneralAlignment.End:
@@ -115,6 +116,7 @@ namespace Spooksoft.Wpf.Controls.Panels
                 cachedDesiredSize.Width,
                 ToGeneralAlignment(elementHorizontalAlignment));
 
+            System.Diagnostics.Debug.WriteLine($"Arrange: {elementLeft}, {elementTop}, {elementWidth}, {elementHeight}");
             element.Arrange(new Rect(elementLeft, elementTop, elementWidth, elementHeight));
         }
 
