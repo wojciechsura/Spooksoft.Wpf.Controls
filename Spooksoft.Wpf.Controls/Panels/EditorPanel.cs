@@ -200,7 +200,7 @@ namespace Spooksoft.Wpf.Controls.Panels
                 UIElement label = InternalChildren[controlIndex++];
                 Size labelDesiredSize = label.DesiredSize;
 
-                UIElement editor = controlIndex < InternalChildren.Count - 1 ? InternalChildren[controlIndex++] : null;
+                UIElement editor = controlIndex < InternalChildren.Count ? InternalChildren[controlIndex++] : null;
                 Size editorDesiredSize = editor?.DesiredSize ?? Size.Empty;
 
                 double rowHeight = Math.Max(labelDesiredSize.Height, editorDesiredSize.Height);
