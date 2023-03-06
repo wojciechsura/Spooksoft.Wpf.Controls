@@ -10,9 +10,9 @@
     <Version>$(VersionPrefix)</Version>
     <Authors>Wojciech "Spook" Sura</Authors>
     <Description>A set of useful WPF controls.</Description>
-    <FileVersion>1.0.1.0</FileVersion>
-    <AssemblyVersion>1.0.1.0</AssemblyVersion>
-    <VersionPrefix>1.0.1.0</VersionPrefix>
+    <FileVersion>1.0.2.0</FileVersion>
+    <AssemblyVersion>1.0.2.0</AssemblyVersion>
+    <VersionPrefix>1.0.2.0</VersionPrefix>
     <PackageProjectUrl>https://github.com/wojciechsura/Spooksoft.Wpf.Controls</PackageProjectUrl>
     <PackageReadmeFile>README.MD</PackageReadmeFile>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

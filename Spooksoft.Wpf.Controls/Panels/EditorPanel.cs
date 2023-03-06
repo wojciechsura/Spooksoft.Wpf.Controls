@@ -53,11 +53,8 @@ namespace Spooksoft.Wpf.Controls.Panels
             }
         }
 
-        private static (double elementStart, double elementSize) EvalPlacement(UIElement element,
-            double placementRectStart,
+        private static (double elementStart, double elementSize) EvalPlacement(double placementRectStart,
             double placementRectSize,
-            double elementMarginBegin,
-            double elementMarginEnd,
             double elementDesiredSize,
             GeneralAlignment elementAlignment)
         {
@@ -67,23 +64,23 @@ namespace Spooksoft.Wpf.Controls.Panels
             switch (elementAlignment)
             {
                 case GeneralAlignment.Begin:
-                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize - (elementMarginBegin + elementMarginEnd)));
-                    resultStart = placementRectStart + elementMarginBegin;
+                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize));
+                    resultStart = placementRectStart;
                     break;
 
                 case GeneralAlignment.Center:
-                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize - (elementMarginBegin + elementMarginEnd)));
-                    resultStart = placementRectStart + (placementRectSize - (resultSize + elementMarginBegin + elementMarginEnd)) / 2 + elementMarginBegin;
+                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize));
+                    resultStart = placementRectStart + (placementRectSize - (resultSize) / 2);
                     break;
 
                 case GeneralAlignment.End:
-                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize - (elementMarginBegin + elementMarginEnd)));
-                    resultStart = placementRectStart + placementRectSize - elementMarginEnd - resultSize;
+                    resultSize = Math.Max(0, Math.Min(elementDesiredSize, placementRectSize));
+                    resultStart = placementRectStart + placementRectSize - resultSize;
                     break;
 
                 case GeneralAlignment.Stretch:
-                    resultSize = Math.Max(0, placementRectSize - (elementMarginBegin + elementMarginEnd));
-                    resultStart = placementRectStart + elementMarginBegin;
+                    resultSize = Math.Max(0, placementRectSize);
+                    resultStart = placementRectStart;
                     break;
 
                 default:
@@ -99,30 +96,22 @@ namespace Spooksoft.Wpf.Controls.Panels
             if (cachedDesiredSize == Size.Empty)
                 cachedDesiredSize = element.DesiredSize;
 
-            Thickness elementMargin = new Thickness();
             HorizontalAlignment elementHorizontalAlignment = HorizontalAlignment.Stretch;
             VerticalAlignment elementVerticalAlignment = VerticalAlignment.Top;
 
             if (element is FrameworkElement frameworkElement)
             {
-                elementMargin = frameworkElement.Margin;
                 elementHorizontalAlignment = frameworkElement.HorizontalAlignment;
                 elementVerticalAlignment = frameworkElement.VerticalAlignment;
             }
 
-            (double elementTop, double elementHeight) = EvalPlacement(element,
-                placementRect.Top,
+            (double elementTop, double elementHeight) = EvalPlacement(placementRect.Top,
                 placementRect.Height,
-                elementMargin.Top,
-                elementMargin.Bottom,
                 cachedDesiredSize.Height,
                 ToGeneralAlignment(elementVerticalAlignment));
 
-            (double elementLeft, double elementWidth) = EvalPlacement(element,
-                placementRect.Left,
+            (double elementLeft, double elementWidth) = EvalPlacement(placementRect.Left,
                 placementRect.Width,
-                elementMargin.Left,
-                elementMargin.Right,
                 cachedDesiredSize.Width,
                 ToGeneralAlignment(elementHorizontalAlignment));
 
@@ -211,8 +200,8 @@ namespace Spooksoft.Wpf.Controls.Panels
                 UIElement label = InternalChildren[controlIndex++];
                 Size labelDesiredSize = label.DesiredSize;
 
-                UIElement editor = controlIndex < InternalChildren.Count ? InternalChildren[controlIndex++] : null;
-                Size editorDesiredSize = editor.DesiredSize;
+                UIElement editor = controlIndex < InternalChildren.Count - 1 ? InternalChildren[controlIndex++] : null;
+                Size editorDesiredSize = editor?.DesiredSize ?? Size.Empty;
 
                 double rowHeight = Math.Max(labelDesiredSize.Height, editorDesiredSize.Height);
 

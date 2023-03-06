@@ -1,0 +1,21 @@
+﻿<Window x:Class="Spooksoft.Wpf.Controls.Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Spooksoft.Wpf.Controls.Demo" 
+        xmlns:p="clr-namespace:Spooksoft.Wpf.Controls.Panels;assembly=Spooksoft.Wpf.Controls"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <TabControl>
+        <TabItem Header="EditorPanel">
+            <p:EditorPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <Rectangle Stroke="Black" StrokeThickness="1" Fill="Red" Width="100" Height="24" Margin="1" HorizontalAlignment="Left"/>
+                <Rectangle Stroke="Black" StrokeThickness="1" Fill="Red" Width="100" Height="24" Margin="1" HorizontalAlignment="Left"/>
+
+                <Rectangle Stroke="Black" StrokeThickness="1" Fill="Green" Width="100" Height="24" Margin="1" HorizontalAlignment="Left"/>
+                <Rectangle Stroke="Black" StrokeThickness="1" Fill="Green" Width="100" Height="24" Margin="1" HorizontalAlignment="Left"/>
+            </p:EditorPanel>
+        </TabItem>
+    </TabControl>
+</Window>
