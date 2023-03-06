@@ -53,18 +53,6 @@ namespace Spooksoft.Wpf.Controls.Panels
             }
         }
 
-        private Size DesiredSizeWithMargin(UIElement element)
-        {
-            if (element == null)
-                return Size.Empty;
-
-            if (element is FrameworkElement frameworkElement)
-                return new Size(frameworkElement.DesiredSize.Width + frameworkElement.Margin.Left + frameworkElement.Margin.Right,
-                  frameworkElement.DesiredSize.Height + frameworkElement.Margin.Top + frameworkElement.Margin.Bottom);
-            else
-                return element.DesiredSize;
-        }
-
         private static (double elementStart, double elementSize) EvalPlacement(UIElement element,
             double placementRectStart,
             double placementRectSize,
@@ -109,7 +97,7 @@ namespace Spooksoft.Wpf.Controls.Panels
         private void ArrangeWithAlignment(UIElement element, Rect placementRect, Size cachedDesiredSize)
         {
             if (cachedDesiredSize == Size.Empty)
-                cachedDesiredSize = DesiredSizeWithMargin(element);
+                cachedDesiredSize = element.DesiredSize;
 
             Thickness elementMargin = new Thickness();
             HorizontalAlignment elementHorizontalAlignment = HorizontalAlignment.Stretch;
@@ -155,7 +143,7 @@ namespace Spooksoft.Wpf.Controls.Panels
 
                 InternalChildren[i].Measure(new Size(Math.Max(0, availableSize.Width - (labelMargin.Left + labelMargin.Right)),
                     Math.Max(0, availableSize.Height - (labelMargin.Top + labelMargin.Bottom))));
-                labelSizes.Add(DesiredSizeWithMargin(InternalChildren[i]));
+                labelSizes.Add(InternalChildren[i].DesiredSize);
             }
 
             double maxLabelWidth = labelSizes.Max(ls => ls.Width);
@@ -171,7 +159,7 @@ namespace Spooksoft.Wpf.Controls.Panels
 
                 InternalChildren[i].Measure(new Size(Math.Max(0, availableSize.Width - maxLabelWidth - (editorMargin.Left + editorMargin.Right)),
                     Math.Max(0, availableSize.Height - (editorMargin.Top + editorMargin.Bottom))));
-                editorSizes.Add(DesiredSizeWithMargin(InternalChildren[i]));
+                editorSizes.Add(InternalChildren[i].DesiredSize);
             }
 
             double maxEditorWidth = editorSizes.Any() ? editorSizes.Max(es => es.Width) : 0;
@@ -203,7 +191,7 @@ namespace Spooksoft.Wpf.Controls.Panels
 
             double labelAreaWidth = 0;
             for (int i = 0; i < InternalChildren.Count; i += 2)
-                labelAreaWidth = Math.Max(labelAreaWidth, DesiredSizeWithMargin(InternalChildren[i]).Width);
+                labelAreaWidth = Math.Max(labelAreaWidth, InternalChildren[i].DesiredSize.Width);
 
             labelAreaWidth = Math.Min(labelAreaWidth, finalSize.Width);
 
@@ -221,10 +209,10 @@ namespace Spooksoft.Wpf.Controls.Panels
                 // Retrieve label and editor
 
                 UIElement label = InternalChildren[controlIndex++];
-                Size labelDesiredSize = DesiredSizeWithMargin(label);
+                Size labelDesiredSize = label.DesiredSize;
 
                 UIElement editor = controlIndex < InternalChildren.Count ? InternalChildren[controlIndex++] : null;
-                Size editorDesiredSize = DesiredSizeWithMargin(editor);
+                Size editorDesiredSize = editor.DesiredSize;
 
                 double rowHeight = Math.Max(labelDesiredSize.Height, editorDesiredSize.Height);
 
