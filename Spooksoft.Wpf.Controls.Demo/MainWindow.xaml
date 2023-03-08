@@ -11,6 +11,21 @@
         <TabItem Header="EditorPanel">
             <StackPanel Orientation="Vertical">
                 <p:EditorPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="Purple" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="Purple" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
+
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="HotPink" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="HotPink" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top"/>
+
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="LimeGreen" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
+                    <Rectangle Stroke="Black" StrokeThickness="1" Fill="LimeGreen" Width="50" Height="24" Margin="1" 
+                               HorizontalAlignment="Left" VerticalAlignment="Top" Visibility="Collapsed"/>
+
                     <Rectangle Stroke="Black" StrokeThickness="1" Fill="Red" Width="150" Height="50" Margin="1" 
                                HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <Rectangle Stroke="Black" StrokeThickness="1" Fill="Red" Width="150" Height="24" Margin="1" 

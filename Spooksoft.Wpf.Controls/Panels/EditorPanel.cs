@@ -116,7 +116,6 @@ namespace Spooksoft.Wpf.Controls.Panels
                 cachedDesiredSize.Width,
                 ToGeneralAlignment(elementHorizontalAlignment));
 
-            System.Diagnostics.Debug.WriteLine($"Arrange: {elementLeft}, {elementTop}, {elementWidth}, {elementHeight}");
             element.Arrange(new Rect(elementLeft, elementTop, elementWidth, elementHeight));
         }
 
@@ -128,12 +127,7 @@ namespace Spooksoft.Wpf.Controls.Panels
             for (int i = 0; i < InternalChildren.Count; i += 2)
             {
                 // Measure label
-                Thickness labelMargin = new Thickness(0);
-                if (InternalChildren[i] is FrameworkElement frameworkElement)
-                    labelMargin = frameworkElement.Margin;
-
-                InternalChildren[i].Measure(new Size(Math.Max(0, availableSize.Width - (labelMargin.Left + labelMargin.Right)),
-                    Math.Max(0, availableSize.Height - (labelMargin.Top + labelMargin.Bottom))));
+                InternalChildren[i].Measure(availableSize);
                 labelSizes.Add(InternalChildren[i].DesiredSize);
             }
 
@@ -144,12 +138,7 @@ namespace Spooksoft.Wpf.Controls.Panels
             List<Size> editorSizes = new List<Size>();
             for (int i = 1; i < InternalChildren.Count; i += 2)
             {
-                Thickness editorMargin = new Thickness(0);
-                if (InternalChildren[i] is FrameworkElement frameworkElement)
-                    editorMargin = frameworkElement.Margin;
-
-                InternalChildren[i].Measure(new Size(Math.Max(0, availableSize.Width - maxLabelWidth - (editorMargin.Left + editorMargin.Right)),
-                    Math.Max(0, availableSize.Height - (editorMargin.Top + editorMargin.Bottom))));
+                InternalChildren[i].Measure(availableSize);
                 editorSizes.Add(InternalChildren[i].DesiredSize);
             }
 
@@ -204,6 +193,9 @@ namespace Spooksoft.Wpf.Controls.Panels
 
                 UIElement editor = controlIndex < InternalChildren.Count ? InternalChildren[controlIndex++] : null;
                 Size editorDesiredSize = editor?.DesiredSize ?? Size.Empty;
+
+                if (label.Visibility == Visibility.Collapsed && editor.Visibility == Visibility.Collapsed)
+                    continue;
 
                 double rowHeight = Math.Max(labelDesiredSize.Height, editorDesiredSize.Height);
 
