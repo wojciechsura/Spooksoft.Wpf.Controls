@@ -126,21 +126,22 @@ namespace Spooksoft.Wpf.Controls.Panels
             List<Size> labelSizes = new List<Size>();
             for (int i = 0; i < InternalChildren.Count; i += 2)
             {
-                // Measure label
-                InternalChildren[i].Measure(availableSize);
-                labelSizes.Add(InternalChildren[i].DesiredSize);
-            }
+                // Measure label with unconstrained width to determine its natural desired width
+                    InternalChildren[i].Measure(new Size(double.PositiveInfinity, availableSize.Height));
+                    labelSizes.Add(InternalChildren[i].DesiredSize);
+                }
 
-            double maxLabelWidth = labelSizes.Max(ls => ls.Width);
+                double maxLabelWidth = labelSizes.Any() ? Math.Min(availableSize.Width, labelSizes.Max(ls => ls.Width)) : 0;
+                double availableEditorWidth = Math.Max(0, availableSize.Width - maxLabelWidth);
 
-            // Measure editors
+                // Measure editors
 
-            List<Size> editorSizes = new List<Size>();
-            for (int i = 1; i < InternalChildren.Count; i += 2)
-            {
-                InternalChildren[i].Measure(availableSize);
-                editorSizes.Add(InternalChildren[i].DesiredSize);
-            }
+                List<Size> editorSizes = new List<Size>();
+                for (int i = 1; i < InternalChildren.Count; i += 2)
+                {
+                    InternalChildren[i].Measure(new Size(availableEditorWidth, availableSize.Height));
+                    editorSizes.Add(InternalChildren[i].DesiredSize);
+                }
 
             double maxEditorWidth = editorSizes.Any() ? editorSizes.Max(es => es.Width) : 0;
 
@@ -194,7 +195,7 @@ namespace Spooksoft.Wpf.Controls.Panels
                 UIElement editor = controlIndex < InternalChildren.Count ? InternalChildren[controlIndex++] : null;
                 Size editorDesiredSize = editor?.DesiredSize ?? Size.Empty;
 
-                if (label.Visibility == Visibility.Collapsed && editor.Visibility == Visibility.Collapsed)
+                if (label.Visibility == Visibility.Collapsed && (editor == null || editor.Visibility == Visibility.Collapsed))
                     continue;
 
                 double rowHeight = Math.Max(labelDesiredSize.Height, editorDesiredSize.Height);
